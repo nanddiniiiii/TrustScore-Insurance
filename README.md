@@ -48,6 +48,28 @@ Before releasing any payout, a validation layer checks the claim using multiple 
 
 ---
 
+## 🔄 System Flow Overview
+
+```
+User → Mobile App (Activity Tracking)
+        ↓
+External Data (Weather / AQI APIs)
+        ↓
+AI Engine (Risk Scoring + TrustScore)
+        ↓
+Disruption Trigger Detected
+        ↓
+Validation Layer
+(Behavior + Sensors + Zone Consensus)
+        ↓
+Confidence Score Generated
+        ↓
+Payout Decision
+(Instant / Partial / Review)
+```
+
+---
+
 ## 💰 Weekly Premium Model
 
 The premium is structured on a weekly basis to align with how gig workers earn.
