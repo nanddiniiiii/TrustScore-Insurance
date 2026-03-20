@@ -3,6 +3,7 @@ Proof-of-Work Based Parametric Insurance for Gig Workers
 🚨 Problem
 
 Delivery partners form the backbone of India’s gig economy, yet their income is highly unstable. External disruptions such as heavy rain, floods, extreme heat, or pollution can suddenly halt deliveries — cutting off their daily earnings.
+
 Current parametric insurance solutions attempt to address this, but they rely heavily on GPS-based validation, which is easy to manipulate. This makes them vulnerable to large-scale fraud, where attackers spoof locations and trigger false payouts.
 
 👉 The real challenge is not just insuring workers, but building a system that can distinguish genuine claims from fraudulent ones at scale.
@@ -25,7 +26,7 @@ We propose TrustScore, an AI-powered parametric insurance platform designed spec
 
 Instead of relying only on location, our system introduces behavior-based verification, ensuring payouts are given only when real-world activity aligns with disruption conditions.
 
-Key Capabilities:
+Key Capabilities
 
 Detect real-world disruptions using external data
 
@@ -72,7 +73,7 @@ Historical claims
 
 TrustScore (behavior reliability)
 
-👉 Weekly pricing aligns with gig workers’ earning cycles and keeps the model flexible.
+👉 Weekly pricing aligns with gig workers’ earning cycles.
 
 ⚡ Parametric Triggers
 
@@ -95,17 +96,13 @@ Adjusts weekly premium based on risk + behavior
 
 3. Fraud Detection
 
-Detects anomalies using:
-
 Behavioral analysis
 
 Sensor data
 
 Pattern clustering
 
-4. TrustScore System (Core Innovation ⭐)
-
-Each worker is assigned a score based on:
+4. TrustScore System ⭐
 
 Work consistency
 
@@ -113,26 +110,26 @@ Movement realism
 
 Historical reliability
 
-👉 This score directly influences premium and payout decisions.
+👉 Directly influences premium and payout decisions
 
-🧱 System Architecture (High-Level)
+🧱 System Architecture
 
-Mobile App → React Native
+Mobile App: React Native
 
-Backend → Node.js (Express)
+Backend: Node.js (Express)
 
-AI/ML Engine → Python
+AI/ML Engine: Python
 
-Database → MongoDB
+Database: MongoDB
 
-APIs → Weather API, Maps API
+APIs: Weather API, Maps API
 
 🔒 Adversarial Defense & Anti-Spoofing Strategy
 1️⃣ Differentiation: Real vs Fake Workers
 
-We move from location-based trust to behavior-based trust.
+We move from location-based trust → behavior-based trust
 
-Real Workers:
+Real Workers
 
 Continuous and natural movement
 
@@ -140,7 +137,7 @@ Irregular working patterns
 
 Active delivery behavior
 
-Fraudulent Actors:
+Fraudulent Actors
 
 Static or unrealistic movement
 
@@ -183,9 +180,9 @@ Duplicate accounts
 
 Historical claim patterns
 
-3️⃣ Proof-of-Work Validation (Key Feature ⭐)
+3️⃣ Proof-of-Work Validation ⭐
 
-Claims are validated using actual delivery activity patterns.
+Claims are validated using actual delivery activity patterns
 
 Workers must demonstrate realistic behavior
 
@@ -193,7 +190,7 @@ Fake users cannot replicate delivery patterns at scale
 
 4️⃣ Zone Consensus Validation
 
-Disruptions are validated at a community level:
+Disruptions are validated at a community level
 
 Multiple workers in same area must show reduced activity
 
@@ -222,7 +219,7 @@ Multi-step verification
 
 Manual review for edge cases
 
-👉 We prioritize minimizing false positives to protect genuine delivery partners.
+👉 We prioritize minimizing false positives to protect genuine delivery partners
 
 8️⃣ Economic Defense Layer
 
