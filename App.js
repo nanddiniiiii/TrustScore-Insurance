@@ -58,13 +58,16 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Dashboard">
-          {() => (
-            <DashboardScreen
-              user={user}
-              onSimulateDisruption={handleSimulateDisruption}
-            />
-          )}
-        </Tab.Screen>
+  {({ navigation }) => (
+    <DashboardScreen
+      user={user}
+      onSimulateDisruption={(trigger, intensityFactor) => {
+        handleSimulateDisruption(trigger, intensityFactor);
+        navigation.navigate("Claim");
+      }}
+    />
+  )}
+</Tab.Screen>
         <Tab.Screen name="Claim">
           {() => <ClaimScreen claim={claim} />}
         </Tab.Screen>
