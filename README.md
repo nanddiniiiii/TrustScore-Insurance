@@ -1,3 +1,91 @@
+# 🛡️ TrustScore Insurance
+
+### AI-Assisted Parametric Insurance for Gig Workers
+**Real-time risk evaluation • Behavioral validation • Confidence-based payouts**
+
+---
+
+## 🎯 Theme: *Protect Your Worker*
+
+TrustScore is a parametric insurance system designed for gig workers, where payouts are triggered based on real-world signals such as environmental conditions and validated using behavioral and fraud-detection mechanisms.
+
+Unlike traditional insurance workflows, TrustScore minimizes manual intervention by combining **external triggers + system-level validation**.
+
+---
+
+## 🚨 Problem Statement
+
+Gig workers face frequent income disruption due to:
+
+- Heavy rainfall and floods
+- Extreme heat or poor air quality
+- Localized delivery slowdowns
+
+Existing parametric insurance systems:
+
+- Rely heavily on **GPS-based validation**
+- Are vulnerable to **GPS spoofing and coordinated fraud**
+- Lack **behavioral verification mechanisms**
+
+👉 The challenge is enabling **fast payouts while maintaining robustness against adversarial behavior**.
+
+---
+
+## 💡 System Overview
+
+TrustScore implements a **multi-signal decision system** integrating:
+
+- Environmental risk signals (weather APIs)
+- Behavioral metrics (movement and activity patterns)
+- Fraud indicators (device and sensor anomalies)
+
+👉 Core shift:
+**From "Where are you?" → to "Are you behaving like a real worker?"**
+
+---
+
+## 🔄 System Workflow
+
+1. **User Registration** — Name, city, platform, hourly income
+2. **Signal Collection** — Weather data (OpenWeatherMap API) + behavioral indicators (activity consistency, route patterns)
+3. **Risk Estimation** — Environmental data → normalized risk score
+4. **Trigger Detection** — Disruption events detected using thresholds
+5. **Validation Layer** — Trust, behavior, fraud signals evaluated
+6. **Decision Engine** — Confidence score computed → payout determined
+
+---
+
+## ⚙️ Core Decision Model
+
+Confidence Score = (Trust × 0.4) + (Behavior × 0.2) + (Zone × 0.3) − Fraud Penalty
+
+### Signal Definitions
+
+| Signal | Factors |
+|---|---|
+| **Trust Score** | GPS consistency, work activity patterns, historical reliability |
+| **Behavior Score** | Speed variance, route deviation |
+| **Zone Score** | Active workers in area, average activity |
+| **Fraud Signals** | GPS jumps (>1000m), sensor mismatch, duplicate device |
+
+---
+
+## 💰 Premium & Payout Model
+
+### Weekly Premium
+
+Calculated dynamically using:
+
+- Environmental risk
+- Worker activity
+- Historical behavior
+
+👉 Aligned with **weekly gig income cycles**
+
+### Income Loss Formula
+
+Income Loss = Hourly Income × Hours Lost
+
 ### Payout Logic
 
 | Confidence Score | Outcome |
@@ -144,3 +232,4 @@ TrustScore demonstrates a structured parametric insurance system combining:
 ## ❤️ Built for Hackathon
 
 Exploring how real-world signals can power **reliable insurance systems for gig workers**.
+
