@@ -1,7 +1,13 @@
 import requests
 import os
 
-API_KEY = "45066bba13cfca80c7cd4ad40b737b6d"
+# Prevent Hardcoding/Leaking on GitHub!
+# Load from environment variables, or read from a local hidden text file.
+API_KEY = os.environ.get("OPENWEATHER_API_KEY")
+if not API_KEY and os.path.exists("python/secret.txt"):
+    with open("python/secret.txt", "r") as f:
+        API_KEY = f.read().strip()
+        
 BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 def get_live_weather(city_name):
