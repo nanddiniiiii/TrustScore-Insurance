@@ -135,4 +135,12 @@ const styles = StyleSheet.create({
   }
 });
 
+<<<<<<< HEAD
 export default DashboardScreen;
+=======
+export default DashboardScreen;
+
+
+
+ 
+>>>>>>> a0db61f0f6e9cfaa0ef68efe0c2b5769487388f1

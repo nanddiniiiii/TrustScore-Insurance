@@ -11,17 +11,27 @@
   },
   "dependencies": {
     "@expo/metro-runtime": "~5.0.5",
+<<<<<<< HEAD
     "@react-native-masked-view/masked-view": "0.3.2",
     "@react-navigation/bottom-tabs": "^7.15.9",
     "@react-navigation/native": "^7.2.2",
     "@react-navigation/stack": "^7.8.9",
+=======
+    "@react-navigation/bottom-tabs": "^7.15.9",
+    "@react-navigation/native": "^7.2.2",
+    "@react-navigation/native-stack": "^7.14.10",
+>>>>>>> a0db61f0f6e9cfaa0ef68efe0c2b5769487388f1
     "expo": "~53.0.10",
     "expo-status-bar": "~2.2.3",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.3",
+<<<<<<< HEAD
     "react-native-gesture-handler": "~2.24.0",
     "react-native-safe-area-context": "5.4.0",
+=======
+    "react-native-safe-area-context": "^5.7.0",
+>>>>>>> a0db61f0f6e9cfaa0ef68efe0c2b5769487388f1
     "react-native-screens": "^4.24.0",
     "react-native-web": "^0.20.0"
   }
