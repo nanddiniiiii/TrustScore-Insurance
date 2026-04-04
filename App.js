@@ -69,31 +69,8 @@ export default function App() {
   }
 
   return (
-<<<<<<< HEAD
     <ThemeProvider>
       <ThemedApp user={user} />
     </ThemeProvider>
-=======
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Dashboard">
-  {({ navigation }) => (
-    <DashboardScreen
-      user={user}
-      onSimulateDisruption={(trigger, intensityFactor) => {
-        handleSimulateDisruption(trigger, intensityFactor);
-        navigation.navigate("Claim");
-      }}
-    />
-  )}
-</Tab.Screen>
-        <Tab.Screen name="Claim">
-          {() => <ClaimScreen claim={claim} />}
-        </Tab.Screen>
-        <Tab.Screen name="Analytics" component={AnalyticsScreen} />
-      </Tab.Navigator>
-      <StatusBar style="auto" />
-    </NavigationContainer>
->>>>>>> a0db61f0f6e9cfaa0ef68efe0c2b5769487388f1
   );
 }
