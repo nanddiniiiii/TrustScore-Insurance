@@ -1,103 +1,137 @@
-import React from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import {
-  calculateRiskScore,
-  calculateTrustScore,
-  calculateWeeklyPremium,
-} from '../utils/insuranceEngine';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
+import { getRiskScore, calculatePremium } from '../utils/insuranceEngine';
+import { useTheme } from '../utils/ThemeContext';
 
-const DashboardScreen = ({ user, onSimulateDisruption }) => {
-  // Mock data for simulation
-  const rainfall = 0.6;
-  const areaRisk = 0.8;
-  const pollution = 0.4;
-  const movementConsistency = 85;
-  const workActivity = 80;
-  const claimHistory = 90;
-  const deviceReliability = 75;
+const DashboardScreen = ({ route, navigation }) => {
+  const { theme } = useTheme();
+  const user = route.params?.user || { name: 'User', city: 'Mumbai', platform: 'Swiggy', hourlyIncome: 100 };
+  
+  const [risk, setRisk] = useState(0);
+  const [premium, setPremium] = useState(0);
 
-  const riskScore = calculateRiskScore(rainfall, areaRisk, pollution);
-  const trustScore = calculateTrustScore(
-    movementConsistency,
-    workActivity,
-    claimHistory,
-    deviceReliability
-  );
-  const weeklyPremium = calculateWeeklyPremium(riskScore, trustScore);
+  useEffect(() => {
+    const fetchRisk = async () => {
+      // Fetch specifically for the user's city
+      const fetchedRisk = await getRiskScore(user.city);
+      setRisk(fetchedRisk);
+      // Calculate premium dynamically against their true hourly wage using actuarial risk modeling
+      setPremium(calculatePremium(fetchedRisk, user.hourlyIncome));
+    };
+    fetchRisk();
+  }, [user.city, user.hourlyIncome]);
+
+  const simulateDisruption = (type, params = {}) => {
+    navigation.navigate('Claim', { simulationType: type, simulationParams: params, user });
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Dashboard</Text>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>TrustScore</Text>
-        <Text style={styles.score}>{trustScore.toFixed(0)}</Text>
+    <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
+
+      <Text style={[styles.title, { color: theme.text }]}>Dashboard</Text>
+
+      {/* MAIN STATUS */}
+      <View style={[styles.card, { backgroundColor: theme.card }]}>
+
+        <Text style={[styles.cardTitle, { color: theme.text }]}>Welcome, {user.name} ({user.platform})</Text>
+
+        <Text style={{ color: theme.text }}>Location: {user.city}</Text>
+        <Text style={{ color: theme.text }}>Hourly Income: ₹{user.hourlyIncome}/hr</Text>
+
+        <Text style={{ color: theme.text, marginTop: 10 }}>Coverage Status: <Text style={styles.active}>Active</Text></Text>
+
+        <Text style={styles.highlight}>
+          Weekly Premium: ₹{premium.toFixed(0)}
+        </Text>
       </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>RiskScore</Text>
-        <Text style={styles.score}>{riskScore.toFixed(2)}</Text>
+
+      <View style={[styles.card, { backgroundColor: theme.card }]}>
+
+        <Text style={[styles.cardTitle, { color: theme.text }]}>Simulate Disruptions</Text>
+        <Button
+          title="Simulate: Heavy Rain 🌧️"
+          onPress={() => simulateDisruption('Heavy Rain')}
+          color={theme.button}
+        />
+        <View style={{ marginVertical: 5 }} />
+        <Button
+          title="Simulate: High AQI 🌫️"
+          onPress={() => simulateDisruption('High AQI')}
+          color={theme.button}
+        />
+        <View style={{ marginVertical: 5 }} />
+        <Button
+          title="Simulate: Zone Shutdown 🚧"
+          onPress={() => simulateDisruption('Zone Shutdown')}
+          color={theme.button}
+        />
       </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Weekly Premium</Text>
-        <Text style={styles.premium}>₹{weeklyPremium.toFixed(2)}</Text>
+
+      <View style={[styles.card, { backgroundColor: theme.card }]}>
+
+        <Text style={[styles.cardTitle, { color: theme.text }]}>Simulate Fraud Scenarios</Text>
+        <Button
+          title="Simulate: Route Deviation"
+          onPress={() => simulateDisruption('Fraud - Route Deviation', { routeDeviation: 600 })}
+          color={theme.button}
+        />
+        <View style={{ marginVertical: 5 }} />
+        <Button
+          title="Simulate: Sensor Mismatch"
+          onPress={() => simulateDisruption('Fraud - Sensor Mismatch', { sensorMismatch: true })}
+          color={theme.button}
+        />
+        <View style={{ marginVertical: 5 }} />
+        <Button
+          title="Simulate: Duplicate Device"
+          onPress={() => simulateDisruption('Fraud - Duplicate Device', { duplicateDevice: true })}
+          color={theme.button}
+        />
       </View>
-      <View style={styles.card}>
-        <Text style={styles.cardTitle}>Coverage</Text>
-        <Text style={styles.status}>Active</Text>
-      </View>
-      <View style={styles.info}>
-        <Text>{user.name}</Text>
-        <Text>{user.city} | {user.platform}</Text>
-      </View>
-      <Button title="Simulate Heavy Rain" onPress={() => onSimulateDisruption('Heavy Rain', 1.0)} />
-    </View>
+
+      <View style={{ marginVertical: 10 }} />
+      <Button
+        title="View Analytics"
+        onPress={() => navigation.navigate('Analytics', { user })}
+        color={theme.button}
+      />
+      <View style={{ marginVertical: 20 }} />
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 20,
     backgroundColor: '#f4fbf6',
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
+    marginBottom: 20,
     textAlign: 'center',
-    marginVertical: 10,
   },
   card: {
     backgroundColor: 'white',
-    borderRadius: 8,
-    padding: 15,
-    marginVertical: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1.41,
-    elevation: 2,
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 20,
+    elevation: 3,
   },
   cardTitle: {
-    fontSize: 16,
-    color: '#555',
-  },
-  score: {
-    fontSize: 28,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#2e7d32',
+    marginBottom: 10,
   },
-  premium: {
-    fontSize: 28,
+  active: {
+    color: 'green',
     fontWeight: 'bold',
-    color: '#c62828',
   },
-  status: {
-    fontSize: 28,
+  highlight: {
+    marginTop: 10,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#2e7d32',
-  },
-  info: {
-    alignItems: 'center',
-    marginVertical: 15,
   }
 });
 

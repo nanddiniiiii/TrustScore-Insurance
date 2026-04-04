@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
+import { useTheme } from '../utils/ThemeContext';
 
 const LoginScreen = ({ onLogin }) => {
+  const { theme } = useTheme();
   const [name, setName] = useState('');
   const [city, setCity] = useState('');
   const [platform, setPlatform] = useState('');
@@ -19,59 +21,68 @@ const LoginScreen = ({ onLogin }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome to TrustScore</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Name"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="City"
-        value={city}
-        onChangeText={setCity}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Platform (e.g., Swiggy, Zomato)"
-        value={platform}
-        onChangeText={setPlatform}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Average Hourly Income (₹)"
-        value={income}
-        onChangeText={setIncome}
-        keyboardType="numeric"
-      />
-      <Button title="Register" onPress={handleLogin} />
-    </View>
+    <ScrollView style={{ backgroundColor: theme.background }}>
+      <View style={styles.container}>
+        <Text style={[styles.title, { color: theme.text }]}>
+          TrustScore Insurance
+        </Text>
+
+        <TextInput
+          style={[styles.input, { color: theme.text, borderColor: theme.subtext }]}
+          placeholder="Name"
+          placeholderTextColor={theme.subtext}
+          value={name}
+          onChangeText={setName}
+        />
+
+        <TextInput
+          style={[styles.input, { color: theme.text, borderColor: theme.subtext }]}
+          placeholder="City"
+          placeholderTextColor={theme.subtext}
+          value={city}
+          onChangeText={setCity}
+        />
+
+        <TextInput
+          style={[styles.input, { color: theme.text, borderColor: theme.subtext }]}
+          placeholder="Platform (Swiggy/Zomato)"
+          placeholderTextColor={theme.subtext}
+          value={platform}
+          onChangeText={setPlatform}
+        />
+
+        <TextInput
+          style={[styles.input, { color: theme.text, borderColor: theme.subtext }]}
+          placeholder="Hourly Income (₹)"
+          placeholderTextColor={theme.subtext}
+          value={income}
+          onChangeText={setIncome}
+          keyboardType="numeric"
+        />
+
+        <Button title="Register" onPress={handleLogin} />
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#f4fbf6',
+    marginTop: 50
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
-    textAlign: 'center',
     marginBottom: 20,
+    textAlign: 'center'
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
     borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-  },
+    marginBottom: 15,
+    padding: 10,
+    borderRadius: 8
+  }
 });
 
 export default LoginScreen;

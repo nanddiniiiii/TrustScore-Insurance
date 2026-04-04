@@ -1,76 +1,76 @@
+import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
+import { Button } from 'react-native';
 
 import LoginScreen from './src/screens/LoginScreen';
 import DashboardScreen from './src/screens/DashboardScreen';
 import ClaimScreen from './src/screens/ClaimScreen';
 import AnalyticsScreen from './src/screens/AnalyticsScreen';
-import {
-  calculateIncomeLoss,
-  getPayoutDecision,
-  calculateTrustScore,
-} from './src/utils/insuranceEngine';
+import { ThemeProvider, useTheme } from './src/utils/ThemeContext';
 
-const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const ThemedApp = ({ user }) => {
+  const { theme, toggleTheme, isDarkMode } = useTheme();
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: { backgroundColor: theme.card },
+          headerTintColor: theme.text,
+          headerRight: () => (
+            <Button
+              onPress={toggleTheme}
+              title={isDarkMode ? '☀️' : '🌙'}
+              color={theme.button}
+            />
+          ),
+        }}
+      >
+        <Stack.Screen 
+          name="Dashboard" 
+          component={DashboardScreen} 
+          initialParams={{ user }} 
+        />
+        <Stack.Screen 
+          name="Claim" 
+          component={ClaimScreen} 
+          options={{ title: 'Claim Details' }} 
+          initialParams={{ user }} 
+        />
+        <Stack.Screen 
+          name="Analytics" 
+          component={AnalyticsScreen} 
+          initialParams={{ user }} 
+        />
+      </Stack.Navigator>
+      <StatusBar style={isDarkMode ? "light" : "dark"} />
+    </NavigationContainer>
+  );
+};
 
 export default function App() {
   const [user, setUser] = useState(null);
-  const [claim, setClaim] = useState(null);
 
   const handleLogin = (userData) => {
     setUser(userData);
   };
 
-  const handleSimulateDisruption = (trigger, intensityFactor) => {
-    const hoursLost = 3; // Simulate 3 hours of lost work
-    const incomeLoss = calculateIncomeLoss(user.hourlyIncome, hoursLost);
-
-    const trustScore = calculateTrustScore(85, 80, 90, 75); // Mock values
-    const { decision, payout } = getPayoutDecision(
-      trustScore,
-      incomeLoss,
-      intensityFactor
-    );
-
-    const explanation = [
-      { reason: 'Movement consistent', success: true },
-      { reason: 'Matches disruption zone', success: true },
-      { reason: 'No suspicious device activity', success: true },
-    ];
-
-    setClaim({
-      trigger,
-      incomeLoss,
-      trustScore,
-      decision,
-      payout,
-      explanation,
-    });
-  };
-
   if (!user) {
-    return <LoginScreen onLogin={handleLogin} />;
+    return (
+      <ThemeProvider>
+        <LoginScreen onLogin={handleLogin} />
+      </ThemeProvider>
+    );
   }
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="Dashboard">
-          {() => (
-            <DashboardScreen
-              user={user}
-              onSimulateDisruption={handleSimulateDisruption}
-            />
-          )}
-        </Tab.Screen>
-        <Tab.Screen name="Claim">
-          {() => <ClaimScreen claim={claim} />}
-        </Tab.Screen>
-        <Tab.Screen name="Analytics" component={AnalyticsScreen} />
-      </Tab.Navigator>
-      <StatusBar style="auto" />
-    </NavigationContainer>
+    <ThemeProvider>
+      <ThemedApp user={user} />
+    </ThemeProvider>
   );
 }
