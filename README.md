@@ -225,7 +225,8 @@ TrustScore demonstrates a structured parametric insurance system combining:
 
 ## 🎥 Demo
 
-*(Add your video link here)*
+https://youtube.com/shorts/d_PMy_tHb40?si=9c7H-AeNmtd9ftH9
+
 
 ---
 
