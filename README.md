@@ -1,246 +1,137 @@
-# 🛡️ TrustScore Insurance
+### Payout Logic
 
-### AI-Assisted Parametric Insurance for Gig Workers  
-**Real-time risk. Behavior-based validation. Fair payouts.**
+| Confidence Score | Outcome |
+|---|---|
+| > 75 | ✅ Full payout |
+| 50 – 75 | 🟡 Partial payout (~70%) |
+| < 50 | 🚫 Flagged / No payout |
 
----
-
-## 🎯 Theme: *Protect Your Worker*
-
-TrustScore is designed to provide **income protection for gig workers** when external disruptions — such as heavy rain or extreme conditions — prevent them from working.
-
-Instead of traditional claim-based insurance, TrustScore uses a **parametric model**, where payouts are triggered based on real-world signals and validated through behavioral analysis.
-
----
-
-## 🚨 Problem
-
-Gig workers face **frequent income disruption** due to weather and environmental conditions, but lack accessible and reliable insurance.
-
-Existing parametric systems:
-- rely heavily on **GPS-based validation**
-- are vulnerable to **spoofing and coordinated fraud**
-- lack **behavioral verification**
-
-👉 The challenge is not just fast payouts — but ensuring **accurate, fair, and fraud-resistant payouts at scale**.
-
----
-
-## 💡 Solution Overview
-
-TrustScore introduces a **multi-signal insurance system** that combines:
-
-- Environmental risk (weather conditions)  
-- Worker behavior (activity patterns)  
-- Fraud detection (multi-layer validation)  
-
-👉 Core shift:  
-**From “Where are you?” → to “Are you behaving like a real worker?”**
-
----
-
-## 🔄 System Workflow
-
-1. Worker registers with:
-   - Name, city, platform, hourly income  
-
-2. System continuously evaluates:
-   - Environmental conditions (weather API)  
-   - Worker behavior (activity, consistency)  
-
-3. Weekly premium is calculated dynamically  
-
-4. When disruption thresholds are crossed:
-   - Claim is triggered  
-   - Validation layer evaluates signals  
-
-5. Based on computed confidence:
-   - Payout is processed (full / partial / flagged)
-
----
-
-## ⚙️ Core Decision Logic
-
-
-
-### Components:
-- **Trust Score:** GPS consistency, work patterns, historical reliability  
-- **Behavior Score:** Speed variance, route deviation  
-- **Zone Score:** Area-level delivery activity  
-- **Fraud Signals:** Device duplication, sensor mismatch, GPS anomalies  
-
----
-
-## 💰 Weekly Premium Model
-
-Premiums are calculated weekly to align with gig worker earnings.
-
-Factors include:
-- Location-based environmental risk  
-- Worker activity patterns  
-- Historical behavior  
-- TrustScore  
-
-👉 Ensures pricing is **dynamic, personalized, and fair**
+👉 Payout is also scaled using **risk intensity**
 
 ---
 
 ## ⚡ Parametric Triggers
 
-Claims are triggered when external conditions exceed thresholds:
+Claims are triggered when:
 
-- High rainfall  
-- Flood alerts  
-- Extreme temperature  
-- Drop in delivery activity within a zone  
+- Rainfall exceeds threshold
+- Flood alerts active
+- Extreme temperature recorded
+- Drop in delivery activity detected
 
 ---
 
-## 🔒 Fraud Detection Strategy
-
-TrustScore implements a **multi-layer fraud detection system**:
+## 🔒 Fraud Detection Architecture
 
 ### Behavioral Validation
-- Detects unrealistic movement patterns  
-- Identifies route deviations  
+- Detects unrealistic movement patterns
+- Route deviation detection
 
 ### Device & Sensor Checks
-- Duplicate device detection  
-- Sensor mismatch (GPS vs accelerometer)  
+- Duplicate device detection
+- Sensor mismatch flagging
 
 ### GPS Integrity
-- Flags sudden location jumps (>1000m anomalies)  
+- Detects large location jumps (>1000m)
 
 ### Zone-Level Consensus
-- Validates disruption across multiple users  
+- Cross-validates disruptions across multiple users in the same zone
 
-👉 Fraud signals directly reduce confidence and can block payouts  
-
----
-
-## 🧱 Tech Stack
-
-- **Frontend:** React Native (Expo)  
-- **Backend:** Python (Flask)  
-- **ML Model:** Scikit-learn (Random Forest for risk scoring)  
-- **APIs:** OpenWeatherMap  
-- **Navigation:** React Navigation Stack  
+👉 Fraud signals directly impact confidence score and payout decision.
 
 ---
 
-# 🚀 Phase 1 — Foundation & Architecture
+## 🧱 System Architecture
 
-Phase 1 focused on building a **functional, end-to-end system design**.
+### Frontend
+- React Native (Expo)
+- Multi-screen mobile app
+- Dark / Light mode support
 
-### Key Capabilities
+### Backend
+- Python Flask API
+- Handles weather data, risk calculation, and telemetry
 
-- Parametric insurance logic (risk → trigger → payout)  
-- Weekly premium model aligned with gig income cycles  
-- Multi-signal fraud detection framework  
-- Confidence-based claim processing  
-- User persona and workflow design  
-- Integration plan for weather APIs and ML models  
+### ML Component
+- Scikit-learn (Random Forest)
+- Risk prediction model
 
-👉 Outcome:  
-A complete system architecture capable of handling **risk, validation, and payouts**
-
----
-
-# 🚀 Phase 2 — Implementation & Demonstration
-
-Phase 2 focuses on building a **working prototype** demonstrating system behavior.
+### External APIs
+- OpenWeatherMap
 
 ---
 
-## 📱 Mobile Application
+## 🚀 Phase 1 — System Design & Architecture
 
-- Registration with personalized inputs  
-- Dashboard displaying:
-  - Risk Score  
-  - Weekly Premium  
-  - Coverage status  
+**Focus:** Problem understanding, system design, fraud-resistant architecture
 
-- Claim screen showing:
-  - Trust, Behavior, Zone scores  
-  - Confidence score  
-  - Decision (instant / partial / review)  
-  - Final payout  
+**Key Outputs:**
 
----
+- Parametric insurance workflow
+- Weekly premium model
+- Multi-signal validation design
+- Confidence-based decision logic
+- Anti-spoofing strategy
 
-## 🌦️ Weather Integration
-
-- Fetches live weather data via OpenWeatherMap  
-- Used to derive environmental risk signals  
+👉 **Outcome:** A complete architecture capable of handling risk, validation, and payouts
 
 ---
 
-## 🧠 Risk & Decision Engine
+## 🚀 Phase 2 — Prototype Implementation
 
-- Combines multiple signals to compute:
-  - RiskScore  
-  - Confidence Score  
-  - Payout  
+**Focus:** Functional system demonstration
 
-- No fixed payout tables — values are computed dynamically  
+### 📱 Mobile Application
+- User registration
+- Dashboard (risk + premium display)
+- Claim screen (decision engine output)
+- Analytics screen
 
----
+### 🌦️ Weather Integration
+- Real-time data via OpenWeatherMap
+- Used for risk computation
 
-## 🔍 Fraud Detection (Demonstrated)
+### 🧠 Decision Engine
+- Modular scoring functions combining risk, trust, behavior, and fraud signals
+- Outputs: confidence score + payout amount
 
-- GPS anomaly detection (large jumps)  
-- Device duplication scenarios  
-- Sensor mismatch logic  
+### 🔍 Fraud Detection (Demonstrated)
+- GPS anomaly detection
+- Device duplication checks
+- Sensor mismatch analysis
 
-👉 Fraud signals visibly affect:
-- Confidence  
-- Payout decision  
+👉 Fraud signals directly affect confidence and payout.
 
----
+### 📊 Analytics
+- Earnings protected
+- Premiums paid
+- Decision transparency
 
-## 📊 Analytics & Transparency
-
-- Displays:
-  - Earnings protected  
-  - Premiums paid  
-  - Last payout  
-
-- Provides insight into:
-  - TrustScore  
-  - Fraud signals  
-  - System decisions  
-
----
-
-## 🎨 User Experience
-
-- Mobile-first design (Android + iOS via Expo)  
-- Dark / Light mode support  
-- Clear visibility of system decisions  
+### 🎨 User Experience
+- Mobile-first design
+- Dark / Light mode
+- Clear decision visibility
 
 ---
 
-# 🧠 Key Differentiators
+## 🧠 Key Differentiators
 
-- Behavior-based validation (not GPS-dependent)  
-- Confidence-based decision system (not binary)  
-- Explainability layer (users see why decisions are made)  
-- Fraud-resistant architecture designed for coordinated attacks  
+- ✅ Behavior-based validation — not GPS-only
+- ✅ Confidence-based decision engine — not binary approval
+- ✅ Multi-layer fraud detection
+- ✅ Explainable, transparent outputs
 
 ---
 
-# 📌 Summary
+## 📌 Summary
 
-TrustScore demonstrates a practical approach to parametric insurance by combining:
+TrustScore demonstrates a structured parametric insurance system combining:
 
-- Environmental data  
-- Behavioral analysis  
-- Fraud detection  
+- Environmental signals
+- Behavioral analytics
+- Fraud detection
 
-👉 The system prioritizes:
-- Fairness  
-- Transparency  
-- Scalability  
+👉 Focused on **accuracy**, **transparency**, and **scalability**.
 
 ---
 
@@ -250,6 +141,6 @@ TrustScore demonstrates a practical approach to parametric insurance by combinin
 
 ---
 
-# ❤️ Built for Hackathon
+## ❤️ Built for Hackathon
 
-Designed to explore how **real-world signals can power reliable insurance systems for gig workers**.
+Exploring how real-world signals can power **reliable insurance systems for gig workers**.
