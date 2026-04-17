@@ -4,13 +4,7 @@
     "slug": "trustscore-insurance",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#f4fbf6"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -18,13 +12,7 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#f4fbf6"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
+      "backgroundColor": "#f4fbf6"
     }
   }
 }

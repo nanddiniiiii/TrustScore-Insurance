@@ -33,8 +33,7 @@ const DashboardScreen = ({ route, navigation }) => {
         setAutoTrigger(true);
         navigation.navigate('Claim', {
           simulationType: 'Auto Trigger - Heavy Rain',
-          user,
-          processPayout
+          user
         });
       }
     }, 5000);
@@ -42,16 +41,16 @@ const DashboardScreen = ({ route, navigation }) => {
     return () => clearInterval(interval);
   }, [user.city, autoTrigger, navigation]);
 
-  const simulateDisruption = (type, params = {}) => {
-    navigation.navigate('Claim', { simulationType: type, simulationParams: params, user, processPayout });
-  };
-
   const processPayout = (amount) => {
     setTransactions(prev => [
       ...prev,
       { amount, status: "Completed", time: new Date() }
     ]);
-  }
+  };
+
+  const simulateDisruption = (type, params = {}) => {
+    navigation.navigate('Claim', { simulationType: type, simulationParams: params, user });
+  };
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>

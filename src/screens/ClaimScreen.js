@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '../utils/ThemeContext';
+import { UserContext } from '../utils/UserContext';
 
 import {
   getRiskScore,
@@ -18,10 +19,10 @@ import {
 
 const ClaimScreen = ({ route }) => {
   const { theme } = useTheme();
+  const { user } = useContext(UserContext);
   
   // Extract user and simulation details conditionally passed from the Navigation Stack
-  const user = route.params?.user || { name: 'User', city: 'Mumbai', platform: 'Swiggy', hourlyIncome: 120 };
-  const { simulationType, simulationParams, processPayout } = route.params || {};
+  const { simulationType, simulationParams } = route.params || {};
 
   const [risk, setRisk] = useState(0);
   const [telemetry, setTelemetry] = useState(null);
@@ -118,15 +119,14 @@ const ClaimScreen = ({ route }) => {
     hourlyRate
   });
 
-  const payout = calculatePayout(incomeLoss, confidence);
+  const payout = calculatePayout({
+    confidence,
+    risk,
+    incomeLoss
+  });
   const decision = getDecision(confidence, fraud);
 
-  useEffect(() => {
-    if (decision.payoutApproved && processPayout) {
-      processPayout(payout.toFixed(0));
-    }
-  }, [decision.payoutApproved, payout, processPayout]);
-
+  
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.background }]}> 
       <Text style={[styles.title, { color: theme.text }]}>Claim Details</Text>

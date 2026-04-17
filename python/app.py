@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from weather import get_live_weather
+from weather import get_weather
 from predict import predict_risk
 import datetime
 import random
@@ -14,7 +14,7 @@ def predict():
     data = request.get_json()
     city = data.get('city', 'Mumbai') # Default to Mumbai if no city is provided
 
-    weather_data = get_live_weather(city)
+    weather_data = get_weather(city)
 
     if weather_data:
         rainfall = weather_data.get('rainfall', 0)
@@ -42,7 +42,7 @@ def sync_telemetry():
     platform = data.get('platform', 'Swiggy')
 
     # Get REAL live weather to impact sensors and zone density
-    weather_data = get_live_weather(city) or {"rainfall": 0, "temp": 25, "humidity": 50}
+    weather_data = get_weather(city) or {"rainfall": 0, "temp": 25, "humidity": 50}
     rainfall = weather_data.get("rainfall", 0)
     
     # 1. ZONE SCORE CALCULATION (Driven by real time & real weather)

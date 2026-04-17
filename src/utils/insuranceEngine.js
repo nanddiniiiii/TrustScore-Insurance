@@ -1,7 +1,7 @@
 // ---------------- RISK SCORE (FROM ML) ----------------
 export async function getRiskScore(city = 'Mumbai') {
   try {
-    const response = await fetch('http://192.168.1.70:5000/predict', {
+    const response = await fetch('http://192.168.1.72:5000/predict', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export async function getRiskScore(city = 'Mumbai') {
 // ---------------- TELEMETRY SERVER SYNC ----------------
 export async function getLiveTelemetry(user) {
   try {
-    const response = await fetch('http://192.168.1.70:5000/sync-telemetry', {
+    const response = await fetch('http://192.168.1.72:5000/sync-telemetry', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -146,10 +146,17 @@ export function calculatePayout({
 }
 
 // ---------------- DECISION LABEL ----------------
-export function getDecision(confidence) {
-  if (confidence > 75) return "Instant Payout";
-  if (confidence > 50) return "Partial + Verify";
-  return "Flagged for Review";
+export function getDecision(confidence, fraud) {
+  if (fraud.isFraud) {
+    return { text: "Flagged for Review", payoutApproved: false };
+  }
+  if (confidence > 75) {
+    return { text: "Instant Payout", payoutApproved: true };
+  }
+  if (confidence > 50) {
+    return { text: "Partial + Verify", payoutApproved: true };
+  }
+  return { text: "Flagged for Review", payoutApproved: false };
 }
 
 // ---------------- TRUST BREAKDOWN (WOW) ----------------

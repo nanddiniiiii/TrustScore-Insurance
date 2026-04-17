@@ -10,7 +10,7 @@ if not API_KEY and os.path.exists("python/secret.txt"):
         
 BASE_URL = "http://api.openweathermap.org/data/2.5/weather"
 
-def get_live_weather(city_name):
+def get_weather(city_name):
     """
     Fetches live weather data from OpenWeatherMap.
     """
