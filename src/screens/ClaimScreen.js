@@ -133,7 +133,7 @@ const ClaimScreen = ({ route }) => {
       {simulationType && <Text style={[styles.subtitle, { color: theme.text }]}>Triggered by: {simulationType}</Text>}
       
       <View style={[styles.card, { backgroundColor: theme.card }]}> 
-        <Text style={[styles.cardTitle, { color: theme.text }]}>Payout Decision: {decision}</Text>
+        <Text style={[styles.cardTitle, { color: theme.text }]}>Payout Decision: {decision.text}</Text>
 
         <Text style={{ color: theme.text }}>TrustScore: {trust.toFixed(0)}</Text>
         <Text style={{ color: theme.text }}>Behavior Score: {behavior.toFixed(0)}</Text>
@@ -141,10 +141,6 @@ const ClaimScreen = ({ route }) => {
 
         <Text style={[styles.highlight, { color: theme.text }]}>
           Confidence: {confidence.toFixed(0)}
-        </Text>
-
-        <Text style={[styles.highlight, { color: theme.text }]}>
-          Decision: {decision}
         </Text>
 
         <Text style={{ color: theme.text }}>Estimated Loss: ₹{incomeLoss}</Text>
@@ -169,12 +165,12 @@ const ClaimScreen = ({ route }) => {
       </View>
 
       <View style={[styles.card, { backgroundColor: theme.card }]}> 
-        <Text style={[styles.cardTitle, { color: theme.text }]}>Payout Processed</Text>
+        <Text style={[styles.cardTitle, { color: theme.text }]}>✅ Payout Status</Text>
 
         <Text style={[styles.decision, { color: decision.payoutApproved ? '#2e7d32' : '#c62828' }]}>
           {decision.text}
         </Text>
-        {decision.payoutApproved && <Text style={styles.payout}>Payout Processed: ₹{payout.toFixed(0)}</Text>}
+        {decision.payoutApproved && <Text style={styles.payout}>✓ Payout Processed: ₹{payout.toFixed(0)}</Text>}
       </View>
 
       {/* AI EXPLAINABILITY ENGINE - Judges LOVE this! */}

@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { getRiskScore, calculatePremium } from '../utils/insuranceEngine';
 import { useTheme } from '../utils/ThemeContext';
+import { useUser } from '../utils/UserContext';
 
 const DashboardScreen = ({ route, navigation }) => {
   const { theme } = useTheme();
-  const user = route.params?.user || { name: 'User', city: 'Mumbai', platform: 'Swiggy', hourlyIncome: 100 };
+  const { user } = useUser();
   
   const [risk, setRisk] = useState(0);
   const [premium, setPremium] = useState(0);
@@ -28,13 +29,18 @@ const DashboardScreen = ({ route, navigation }) => {
       const fetchedRisk = await getRiskScore(user.city);
       setRisk(fetchedRisk);
 
-      if (fetchedRisk > 0.7) {
+      if (fetchedRisk > 0.7 && !autoTrigger) {
         setAutoTrigger(true);
+        navigation.navigate('Claim', {
+          simulationType: 'Auto Trigger - Heavy Rain',
+          user,
+          processPayout
+        });
       }
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [user.city]);
+  }, [user.city, autoTrigger, navigation]);
 
   const simulateDisruption = (type, params = {}) => {
     navigation.navigate('Claim', { simulationType: type, simulationParams: params, user, processPayout });
@@ -121,6 +127,19 @@ const DashboardScreen = ({ route, navigation }) => {
           onPress={() => simulateDisruption('Fraud - Sensor Mismatch', { sensorMismatch: true })}
           color={theme.button}
         />
+      </View>
+
+      <View style={[styles.card, { backgroundColor: theme.card }]}>
+        <Text style={[styles.cardTitle, { color: theme.text }]}>💳 Transaction History</Text>
+        {transactions.length === 0 ? (
+          <Text style={{ color: theme.text }}>No transactions yet</Text>
+        ) : (
+          transactions.map((t, i) => (
+            <Text key={i} style={{ color: theme.text, marginVertical: 5 }}>
+              ✅ ₹{t.amount} - {t.status} - {new Date(t.time).toLocaleTimeString()}
+            </Text>
+          ))
+        )}
         <View style={{ marginVertical: 5 }} />
         <Button
           title="Simulate: Duplicate Device"
