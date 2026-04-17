@@ -5,7 +5,7 @@
 ## 📋 Deliverables
 
 ### Pitch Deck
-📊 [View Pitch Deck]([https://docs.google.com/presentation/d/YOUR_PITCH_DECK_LINK](https://docs.google.com/presentation/d/1IRSjpBg1Xqg-grnvUphtyQvbFQxCwj1k/edit?usp=sharing&ouid=110122567155754892345&rtpof=true&sd=true))  
+📊 [View Pitch Deck]- https://docs.google.com/presentation/d/1IRSjpBg1Xqg-grnvUphtyQvbFQxCwj1k/edit?usp=sharing&ouid=110122567155754892345&rtpof=true&sd=true
 
 ### Demo Video
 🎥 [Watch Demo Video] https://youtube.com/shorts/p2p__1a2JFU?si=JbcCkIdRO8SiO1VH  
