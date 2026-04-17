@@ -10,11 +10,13 @@ import DashboardScreen from './src/screens/DashboardScreen';
 import ClaimScreen from './src/screens/ClaimScreen';
 import AnalyticsScreen from './src/screens/AnalyticsScreen';
 import { ThemeProvider, useTheme } from './src/utils/ThemeContext';
+import { UserProvider, useUser } from './src/utils/UserContext';
 
 const Stack = createStackNavigator();
 
-const ThemedApp = ({ user }) => {
+const AppNavigator = () => {
   const { theme, toggleTheme, isDarkMode } = useTheme();
+  const { user } = useUser();
 
   return (
     <NavigationContainer>
@@ -31,22 +33,32 @@ const ThemedApp = ({ user }) => {
           ),
         }}
       >
-        <Stack.Screen 
-          name="Dashboard" 
-          component={DashboardScreen} 
-          initialParams={{ user }} 
-        />
-        <Stack.Screen 
-          name="Claim" 
-          component={ClaimScreen} 
-          options={{ title: 'Claim Details' }} 
-          initialParams={{ user }} 
-        />
-        <Stack.Screen 
-          name="Analytics" 
-          component={AnalyticsScreen} 
-          initialParams={{ user }} 
-        />
+        {user ? (
+          <>
+            <Stack.Screen 
+              name="Dashboard" 
+              component={DashboardScreen} 
+              initialParams={{ user }} 
+            />
+            <Stack.Screen 
+              name="Claim" 
+              component={ClaimScreen} 
+              options={{ title: 'Claim Details' }} 
+              initialParams={{ user }} 
+            />
+            <Stack.Screen 
+              name="Analytics" 
+              component={AnalyticsScreen} 
+              initialParams={{ user }} 
+            />
+          </>
+        ) : (
+          <Stack.Screen 
+            name="Login" 
+            component={LoginScreen} 
+            options={{ headerShown: false }}
+          />
+        )}
       </Stack.Navigator>
       <StatusBar style={isDarkMode ? "light" : "dark"} />
     </NavigationContainer>
@@ -54,23 +66,11 @@ const ThemedApp = ({ user }) => {
 };
 
 export default function App() {
-  const [user, setUser] = useState(null);
-
-  const handleLogin = (userData) => {
-    setUser(userData);
-  };
-
-  if (!user) {
-    return (
-      <ThemeProvider>
-        <LoginScreen onLogin={handleLogin} />
-      </ThemeProvider>
-    );
-  }
-
   return (
-    <ThemeProvider>
-      <ThemedApp user={user} />
-    </ThemeProvider>
+    <UserProvider>
+      <ThemeProvider>
+        <AppNavigator />
+      </ThemeProvider>
+    </UserProvider>
   );
 }

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '../utils/ThemeContext';
+import { useUser } from '../utils/UserContext';
 
-const LoginScreen = ({ onLogin }) => {
+const LoginScreen = () => {
   const { theme } = useTheme();
+  const { setUser } = useUser();
   const [name, setName] = useState('');
   const [city, setCity] = useState('');
   const [platform, setPlatform] = useState('');
@@ -11,7 +13,7 @@ const LoginScreen = ({ onLogin }) => {
 
   const handleLogin = () => {
     if (name && city && platform && income) {
-      onLogin({
+      setUser({
         name,
         city,
         platform,

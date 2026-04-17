@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { getRiskScore, calculatePremium } from '../utils/insuranceEngine';
 import { useTheme } from '../utils/ThemeContext';
+import { fetchWeather } from '../../python/weather'; // Assuming you have this function
 
 const DashboardScreen = ({ route, navigation }) => {
   const { theme } = useTheme();
@@ -9,6 +10,8 @@ const DashboardScreen = ({ route, navigation }) => {
   
   const [risk, setRisk] = useState(0);
   const [premium, setPremium] = useState(0);
+  const [autoTrigger, setAutoTrigger] = useState(false);
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
     const fetchRisk = async () => {
@@ -21,9 +24,29 @@ const DashboardScreen = ({ route, navigation }) => {
     fetchRisk();
   }, [user.city, user.hourlyIncome]);
 
+  useEffect(() => {
+    const interval = setInterval(async () => {
+      const weather = await fetchWeather(user.city);
+      const risk = getRiskScore(weather);
+
+      if (risk > 0.7) {
+        setAutoTrigger(true);
+      }
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const simulateDisruption = (type, params = {}) => {
-    navigation.navigate('Claim', { simulationType: type, simulationParams: params, user });
+    navigation.navigate('Claim', { simulationType: type, simulationParams: params, user, processPayout });
   };
+
+  const processPayout = (amount) => {
+    setTransactions(prev => [
+      ...prev,
+      { amount, status: "Completed", time: new Date() }
+    ]);
+  }
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
@@ -37,8 +60,9 @@ const DashboardScreen = ({ route, navigation }) => {
         <Text style={{ color: theme.text, fontSize: 14, marginVertical: 5 }}>Current Risk: <Text style={{ fontWeight: 'bold', fontSize: 16, color: risk > 0.7 ? '#d32f2f' : '#388e3c' }}>{(risk * 100).toFixed(0)}%</Text></Text>
         
         <Text style={{ color: theme.text, marginVertical: 5 }}>
-          {risk > 0.7 ? '🔴 DISRUPTION DETECTED - Claim Auto-Triggered!' : '🟢 Conditions Normal'}
+          Status: {risk > 0.7 ? "⚠️ Disruption Active" : "✅ Normal"}
         </Text>
+        {autoTrigger && <Text style={{ color: theme.text, marginVertical: 5 }}>System Status: ⚠️ Disruption Detected</Text>}
       </View>
 
       {/* MAIN STATUS */}
