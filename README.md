@@ -486,20 +486,6 @@ Combined penalty: -60 points on behavior score
 
 ---
 
-## Phase 1: Foundation & Core Features ✅
-
-🏆 **Full Stack** — React Native + Python ML backend
-🏆 **Live Weather** — Real OpenWeatherMap integration
-🏆 **Zero Hardcoding** — All math dynamic from user inputs
-🏆 **Fraud Detection** — Multi-factor anomaly detection
-🏆 **Mobile Ready** — Android & iOS via Expo
-🏆 **User Authentication** — Registration with personalized data
-🏆 **Multi-Screen Navigation** — Dashboard, Claims, Analytics, Login
-🏆 **Theme Support** — Dark/Light mode toggle
-🏆 **Real-time Calculations** — Premium, payout, confidence scores
-🏆 **Offline Fallback** — Cached data ensures demo robustness
-
----
 
 ## Made with ❤️ for the Hackathon
 
