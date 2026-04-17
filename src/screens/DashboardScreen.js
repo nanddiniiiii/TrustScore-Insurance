@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { getRiskScore, calculatePremium } from '../utils/insuranceEngine';
 import { useTheme } from '../utils/ThemeContext';
-import { fetchWeather } from '../../python/weather'; // Assuming you have this function
 
 const DashboardScreen = ({ route, navigation }) => {
   const { theme } = useTheme();
@@ -26,16 +25,16 @@ const DashboardScreen = ({ route, navigation }) => {
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      const weather = await fetchWeather(user.city);
-      const risk = getRiskScore(weather);
+      const fetchedRisk = await getRiskScore(user.city);
+      setRisk(fetchedRisk);
 
-      if (risk > 0.7) {
+      if (fetchedRisk > 0.7) {
         setAutoTrigger(true);
       }
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [user.city]);
 
   const simulateDisruption = (type, params = {}) => {
     navigation.navigate('Claim', { simulationType: type, simulationParams: params, user, processPayout });
