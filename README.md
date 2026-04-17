@@ -6,7 +6,6 @@
 
 ### Pitch Deck
 📊 [View Pitch Deck](https://docs.google.com/presentation/d/YOUR_PITCH_DECK_LINK)  
-*Link to comprehensive slide deck covering product, market, and go-to-market strategy*
 
 ### Demo Video
 🎥 [Watch Demo Video](https://youtu.be/YOUR_VIDEO_LINK)  
@@ -504,6 +503,3 @@ Combined penalty: -60 points on behavior score
 
 ## Made with ❤️ for the Hackathon
 
-**Submission Date:** April 17, 2026  
-**Theme:** "Protect Your Worker"  
-**Category:** FinTech + AI/ML for Social Good
