@@ -11,10 +11,6 @@
 🎥 [Watch Demo Video](https://youtu.be/YOUR_VIDEO_LINK)  
 *Full walkthrough of the application, scoring system, and claim processing*
 
-### Repository
-💻 [GitHub Repository](https://github.com/YOUR_USERNAME/trustscore-insurance)  
-*Complete source code with all dependencies and setup instructions*
-
 ---
 
 ## Theme: "Protect Your Worker"
