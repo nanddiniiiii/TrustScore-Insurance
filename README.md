@@ -8,7 +8,7 @@
 📊 [View Pitch Deck](https://docs.google.com/presentation/d/YOUR_PITCH_DECK_LINK)  
 
 ### Demo Video
-🎥 [Watch Demo Video](https://youtu.be/YOUR_VIDEO_LINK)  
+🎥 [Watch Demo Video] https://youtube.com/shorts/p2p__1a2JFU?si=JbcCkIdRO8SiO1VH  
 *Full walkthrough of the application, scoring system, and claim processing*
 
 ---
